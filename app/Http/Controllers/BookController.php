@@ -18,16 +18,12 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        // 1. Query awal dengan eager load
         $query = Book::query()->with(['author', 'categories']);
 
-        // 2. Terapkan filter & search
         $this->applyFilters($query, $request);
 
-        // 3. Sorting
         $this->applySorting($query, $request);
 
-        // 4. Pagination
         $books = $query->paginate(20);
 
         foreach ($books as $book) {

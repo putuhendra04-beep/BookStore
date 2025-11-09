@@ -5,6 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TopBookController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Buku
@@ -22,3 +23,5 @@ Route::resource('home', HomeController::class)->only(['index']);
 Route::get('/ratings', [RatingController::class, 'index'])->name('ratings.index');
 Route::get('/books/{book}/rating', [RatingController::class, 'create'])->name('ratings.create');
 Route::post('/ratings', [RatingController::class, 'store'])->name('ratings.store');
+
+Route::get('/topbook', [TopBookController::class, 'index'])->name('topbook.index');

@@ -86,6 +86,7 @@
         background-color: #f8f9fa !important;
         transform: scale(1.03);
         transition: all 0.2s;
+        color: black
     }
 </style>
 @endsection

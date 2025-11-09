@@ -20,15 +20,13 @@ $startLastMonth = $now->copy()->subDays(60);
 
 $authors = Author::query()
 ->select('authors.*')
-// Total ratings (popularity)
 ->withCount(['books as total_ratings' => fn($q) => $q->join('ratings','books.id','=','ratings.book_id')])
-// Avg rating
 ->withAvg('books as avg_book_rating','avg_rating')
-->take(100) // batasi untuk performa
+->take(100) 
 ->get();
 
 if ($tab === 'trending') {
-// Ambil trending score langsung dari DB
+
 $authors->map(function($author) use ($startThisMonth,$startLastMonth){
 $bookIds = $author->books()->pluck('id');
 
@@ -55,7 +53,6 @@ $authors = $authors->sortByDesc('total_ratings')->take(20);
 $authors = $authors->sortByDesc('avg_book_rating')->take(20);
 }
 
-// Best / Worst book bisa dihitung HANYA untuk top 20 authors
 $authors->each(function($author){
 $author->best_book = $author->books()->orderByDesc('avg_rating')->first();
 $author->worst_book = $author->books()->orderBy('avg_rating')->first();
